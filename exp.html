@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>exp</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datatables.bootstrap.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-datatables.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.css"></script>
+</head>
+    <body>
+        <div class="thumbnail"><!--<img src ="images/#">--></div>
+        <div class="caption" align="center">
+            <form action="expinput.php" method="POST" class="btn btn-primary">
+                <h1>Новый расход</h1>
+                <h3>внесите актуальный или запланируйте будущий</h3><br/>
+
+                <div id="table">
+                    <table border="0" width="600" cellpadding="0">
+                        <tr>
+                            <td>
+                                <p> Дата <br/><input class="btn btn-default" type="date" name="expdate" value="" placeholder="выберите дату"/></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p> Тип <br/><input class="btn btn-default" type="text" name="exptype" id="exptypeid" value="" placeholder="выбирите тип"/></p>
+                                <div id="exptype">
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#exptypeid').keyup(function(){
+                                                var query = $(this).val();
+                                                if(query!=''){
+                                                    $.ajax({
+                                                        url: "exptype.php",
+                                                        method: "POST",
+                                                        data: {query:query},
+                                                        success: function(data){
+                                                            $('#exptype').fadeIn();
+                                                            $('#exptype').html(data);
+                                                        }//end success
+                                                    });//end ajax
+                                                }//end if
+                                            });//end keyup
+                                            $(document).on('click', 'li', function () {
+                                                $('#exptypeid').val($(this).text());
+                                                $('#exptype').fadeOut();
+                                            });//end on
+                                        });//end ready
+                                    </script>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p> Сумма <br/><input class="btn btn-default" type="text" name="amount" value="" placeholder="внесите сумму"/></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p> Описание <br/><textarea class="btn btn-default" placeholder="опишите расход" name="expdescr" rows="3" cols="50" maxlength="255"></textarea></p>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p><input class="btn btn-warning" type="submit" value="Записать!"/></p>
+                            </td>
+
+                        <tr>
+                            <td>
+                                <p><a href="milestone.php" class="btn btn-default">Вернуться</a></p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

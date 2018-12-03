@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>income</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datatables.bootstrap.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-datatables.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.css"></script>
+</head>
+<body>
+<div class="thumbnail"><!--<img src ="images/#">--></div>
+<div class="caption" align="center">
+    <form action="incomeinput.php" method="POST" class="btn btn-default">
+        <h1>Новый доход</h1><br/>
+
+        <div id="table">
+            <table border="0" width="600" cellpadding="0">
+                <tr>
+                    <td>
+                        <p> Дата <br/><input class="btn btn-default" type="date" name="incdate" value="" placeholder="выберите дату"/></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p> Тип <br/><input class="btn btn-default" type="text" name="inctype" id="inctypeid" value="" placeholder="выбирите тип"/></p>
+                        <div id="inctype">
+                            <script>
+                                $(document).ready(function(){
+                                    $('#inctypeid').keyup(function(){
+                                        var query = $(this).val();
+                                        if(query!=''){
+                                            $.ajax({
+                                                url: "intype.php",
+                                                method: "POST",
+                                                data: {query:query},
+                                                success: function(data){
+                                                    $('#inctype').fadeIn();
+                                                    $('#inctype').html(data);
+                                                }//end success
+                                            });//end ajax
+                                        }//end if
+                                    });//end keyup
+                                    $(document).on('click', 'li', function () {
+                                        $('#inctypeid').val($(this).text());
+                                        $('#inctype').fadeOut();
+                                    });//end on
+                                });//end ready
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p> Сумма <br/><input class="btn btn-default" type="text" name="incamount" value="" placeholder="внесите сумму"/></p>
+                        <div id="incamount">
+                        <script>
+                            $(document).ready(function () {
+                                $('#incamount').on
+                            })//end ready
+                        </script>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p> Описание <br/><textarea class="btn btn-default" name="incdescr" placeholder="опишите доход" rows="3" cols="50" maxlength="255"></textarea></p>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <p><input class="btn btn-warning" type="submit" value="Записать!"/></p>
+                    </td>
+
+                <tr>
+                    <td>
+                        <p><a href="milestone.php" class="btn btn-primary">Вернуться</a></p>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>
