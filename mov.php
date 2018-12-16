@@ -82,9 +82,9 @@ $inputmov = mysqli_real_escape_string($conn, ($_POST["data_mov"]));
     }
 
     //основные варианты - это две строки ниже
-        $inquery = mysqli_query($conn,"SELECT SUM (incamount) AS sum FROM incdescrtb WHERE incdate <= '".$inputmov."' && userid = '".$userid."' GROUP BY incamount");
+        $inquery = mysqli_query($conn,"SELECT SUM (incamount) AS sum FROM incdescrtb HAVING incdate <= '".$inputmov."' && userid = '".$userid."' GROUP BY incamount");
 
-    $exquery = mysqli_query($conn,"SELECT SUM(amount) AS incsum FROM expdescrtb WHERE expdate <= '".$inputmov."' && userid = '".$userid."' GROUP BY amount");
+    $exquery = mysqli_query($conn,"SELECT SUM(amount) AS incsum FROM expdescrtb HAVING expdate <= '".$inputmov."' && userid = '".$userid."' GROUP BY amount");
 
 var_dump($inquery);
 var_dump($exquery);
